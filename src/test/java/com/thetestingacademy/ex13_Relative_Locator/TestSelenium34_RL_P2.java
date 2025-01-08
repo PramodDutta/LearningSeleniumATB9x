@@ -1,18 +1,19 @@
-package ex13_Relative_Locator;
+package com.thetestingacademy.ex13_Relative_Locator;
+
 import io.qameta.allure.Description;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
+import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import static org.openqa.selenium.support.locators.RelativeLocator.*;
+import static org.openqa.selenium.support.locators.RelativeLocator.with;
 
 
-public class TestSelenium33_RL {
+public class TestSelenium34_RL_P2 {
 
     EdgeDriver driver;
 
@@ -26,12 +27,27 @@ public class TestSelenium33_RL {
     @Description("Verify JS")
     @Test
     public void test_actions() throws InterruptedException {
-        driver.get("https://awesomeqa.com/practice.html");
+        driver.get("https://codepen.io/AbdullahSajjad/full/LYGVRgK");
         driver.manage().window().maximize();
 
-        WebElement span_element = driver.findElement(By.xpath("//span[normalize-space()='Years of Experience']"));
+        // iframe
+        driver.switchTo().frame("result");
 
-        driver.findElement(with(By.id("exp-2")).toRightOf(span_element)).click();
+
+        WebElement submit = driver.findElement(By.xpath("//form[@id=\"form\"]/button"));
+        submit.click();
+
+
+        WebElement username_element = driver.findElement(By.xpath("//input[@id='username']"));
+        WebElement error_element = driver.findElement(with(By.tagName("small")).below(username_element));
+
+        String errorText = error_element.getText();
+        Assert.assertTrue(error_element.isDisplayed());
+        Assert.assertEquals(errorText,"Username must be at least 3 characters");
+
+
+
+
 
 
 

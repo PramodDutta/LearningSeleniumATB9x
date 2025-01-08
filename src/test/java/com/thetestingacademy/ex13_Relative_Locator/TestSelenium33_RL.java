@@ -1,21 +1,18 @@
-package ex13_Relative_Locator;
-
+package com.thetestingacademy.ex13_Relative_Locator;
 import io.qameta.allure.Description;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
-import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import java.util.List;
-
-import static org.openqa.selenium.support.locators.RelativeLocator.with;
+import static org.openqa.selenium.support.locators.RelativeLocator.*;
 
 
-public class TestSelenium35_RL_P2 {
+public class TestSelenium33_RL {
 
     EdgeDriver driver;
 
@@ -26,30 +23,15 @@ public class TestSelenium35_RL_P2 {
         driver = new EdgeDriver(edgeOptions);
     }
 
-    @Description("Verify RL")
+    @Description("Verify JS")
     @Test
     public void test_actions() throws InterruptedException {
-        driver.get("https://www.aqi.in/real-time-most-polluted-city-ranking");
+        driver.get("https://awesomeqa.com/practice.html");
         driver.manage().window().maximize();
 
+        WebElement span_element = driver.findElement(By.xpath("//span[normalize-space()='Years of Experience']"));
 
-        List<WebElement> locations = driver.findElements(By.cssSelector("div.location-name > p"));
-        for (WebElement e  : locations){
-            System.out.println(e.getText());
-            String rank = driver.findElement(with(By.tagName("p")).toLeftOf(e)).getText();
-            String aqi = driver.findElement(with(By.tagName("span")).toRightOf(e)).getText();
-
-
-            System.out.println("| +" + rank +" | " + e.getText() + " | " + aqi + " | ");
-
-
-        }
-
-
-
-
-
-
+        driver.findElement(with(By.id("exp-2")).toRightOf(span_element)).click();
 
 
 

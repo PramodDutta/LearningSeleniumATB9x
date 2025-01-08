@@ -1,4 +1,4 @@
-package ex13_Relative_Locator;
+package com.thetestingacademy.ex13_Relative_Locator;
 
 import io.qameta.allure.Description;
 import org.openqa.selenium.By;
@@ -10,10 +10,12 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import java.util.List;
+
 import static org.openqa.selenium.support.locators.RelativeLocator.with;
 
 
-public class TestSelenium34_RL_P2 {
+public class TestSelenium35_RL_P2 {
 
     EdgeDriver driver;
 
@@ -24,26 +26,26 @@ public class TestSelenium34_RL_P2 {
         driver = new EdgeDriver(edgeOptions);
     }
 
-    @Description("Verify JS")
+    @Description("Verify RL")
     @Test
     public void test_actions() throws InterruptedException {
-        driver.get("https://codepen.io/AbdullahSajjad/full/LYGVRgK");
+        driver.get("https://www.aqi.in/real-time-most-polluted-city-ranking");
         driver.manage().window().maximize();
 
-        // iframe
-        driver.switchTo().frame("result");
+
+        List<WebElement> locations = driver.findElements(By.cssSelector("div.location-name > p"));
+        for (WebElement e  : locations){
+            System.out.println(e.getText());
+            String rank = driver.findElement(with(By.tagName("p")).toLeftOf(e)).getText();
+            String aqi = driver.findElement(with(By.tagName("span")).toRightOf(e)).getText();
 
 
-        WebElement submit = driver.findElement(By.xpath("//form[@id=\"form\"]/button"));
-        submit.click();
+            System.out.println("| +" + rank +" | " + e.getText() + " | " + aqi + " | ");
 
 
-        WebElement username_element = driver.findElement(By.xpath("//input[@id='username']"));
-        WebElement error_element = driver.findElement(with(By.tagName("small")).below(username_element));
+        }
 
-        String errorText = error_element.getText();
-        Assert.assertTrue(error_element.isDisplayed());
-        Assert.assertEquals(errorText,"Username must be at least 3 characters");
+
 
 
 
