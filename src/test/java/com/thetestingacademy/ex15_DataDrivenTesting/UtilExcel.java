@@ -12,7 +12,7 @@ import java.io.IOException;
 public class UtilExcel {
 
      // Apache POI
-      // Read the File
+    // Read the File
     //  Workbook Create
     // Sheet
     // Row and Cell
@@ -39,6 +39,7 @@ public class UtilExcel {
         sheet  = book.getSheet(sheetName);
 
         Object[][] data = new Object[sheet.getLastRowNum()][sheet.getRow(0).getLastCellNum()];
+
         // 5x2
         for (int i = 0; i < sheet.getLastRowNum() ; i++) {
             for (int j = 0; j < sheet.getRow(0).getLastCellNum(); j++) {
